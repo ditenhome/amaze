@@ -1,5 +1,6 @@
 use Random;
 config const showSteps = false;
+config const genAlgorithm = 0;
 
 enum Direction {
   north,
@@ -8,11 +9,18 @@ enum Direction {
   west
 }
 
+enum PrimNodeType {
+  p_out,
+  p_frontier,
+  p_in
+}
+
 record Node {
   var position_x, position_y: int;
   var DirectionDom: domain(Direction);
   var Walls: [DirectionDom] bool = true;
   var visited: bool = false;
+  var primNodeType: PrimNodeType;
 }
 
 config const height=10, width = 10;
@@ -152,9 +160,56 @@ proc recursiveBacktracker(ref maze: MazeRec) {
     y = newy;
     x = newx;
   } while (stack.numElements > 0);
+  delete rand;
+}
+
+proc primModified(ref maze: MazeRec) {
+  var rand = new RandomStream(eltType=int);
+  var frontier: [0..-1] 2*int;
+  var x = rand.getNext(0, maze.width-1) , y = rand.getNext(0, maze.height-1);
+  do {
+    if showSteps then
+      maze.printMaze();
+    maze.Maze[y,x].primNodeType = PrimNodeType.p_in;
+    proc addFrontier(y,x) {
+      if maze.MazeDom.member(y,x) && maze.Maze[y,x].primNodeType == PrimNodeType.p_out {
+        frontier.push_back((maze.Maze[y,x].position_y, maze.Maze[y,x].position_x));
+        maze.Maze[y,x].primNodeType = PrimNodeType.p_frontier;
+      }
+    }
+    addFrontier(y-1, x);
+    addFrontier(y+1, x);
+    addFrontier(y, x-1);
+    addFrontier(y, x+1);
+    var next = rand.getNext(0, frontier.numElements-1);
+    var (newy,newx) = frontier[next];
+    frontier.remove(next);
+    var neighbors: [0..-1] Direction;
+    if maze.MazeDom.member(newy+1, newx) && maze.Maze[newy+1,newx].primNodeType == PrimNodeType.p_in {
+      neighbors.push_back(Direction.north);
+    }
+    if maze.MazeDom.member(newy-1, newx) && maze.Maze[newy-1,newx].primNodeType == PrimNodeType.p_in {
+      neighbors.push_back(Direction.south);
+    }
+    if maze.MazeDom.member(newy, newx+1) && maze.Maze[newy,newx+1].primNodeType == PrimNodeType.p_in {
+      neighbors.push_back(Direction.east);
+    }
+    if maze.MazeDom.member(newy, newx-1) && maze.Maze[newy,newx-1].primNodeType == PrimNodeType.p_in {
+      neighbors.push_back(Direction.west);
+    }
+    maze.removeWall(newx, newy, neighbors[rand.getNext(0, neighbors.numElements-1)]);
+    (y,x) = (newy, newx);
+  } while (frontier.numElements > 0);
+  delete rand;
 }
 
 var m = new MazeRec(height, width);
-recursiveBacktracker(m);
+if genAlgorithm == 0 then
+  recursiveBacktracker(m);
+else if genAlgorithm == 1 then
+  primModified(m);
+else
+  halt("Unknown algorithm: ", genAlgorithm);
+
 m.printMaze();
 
