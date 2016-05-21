@@ -3,9 +3,10 @@ CHPL=chpl
 OPTS=
 HEIGHT=4
 WIDTH=5
+ALGORITHM=0
 
 run: maze
-	./maze --height=$(HEIGHT) --width=$(WIDTH)
+	./maze --height=$(HEIGHT) --width=$(WIDTH) --genAlgorithm=$(ALGORITHM)
 
 maze: maze.chpl
 	chpl maze.chpl -o maze
