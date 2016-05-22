@@ -8,19 +8,19 @@ The maze is displayed to the terminal in simple ascii art.
 
 #### Command line arguments
 
-| Argument        | Value    | Description                                 |
-| --------------- | -------- | ------------------------------------------- |
-| --height=       | <height> | Set the height of the maze                  |
-| --width=        | <width>  | Set the width of the maze                   |
-| --genAlgorithm= | 0        | Select the recursive backtracking algorithm |
-| --genAlgorithm= | 1        | Select the modified Prim algorithm          |
-| --showSteps     |          | Print the maze after each creation step     |
+| Argument        | Value          | Description                                 |
+| --------------- | -------------- | ------------------------------------------- |
+| --height=       | &lt;height&gt; | Set the height of the maze                  |
+| --width=        | &lt;width&gt;  | Set the width of the maze                   |
+| --genAlgorithm= | 0              | Select the recursive backtracking algorithm |
+| --genAlgorithm= | 1              | Select the modified Prim algorithm          |
+| --showSteps     |                | Print the maze after each creation step     |
 
 Compiling this program requires a working Chapel compiler. See
 http://chapel.cray.com to download the Chapel compiler and for instructions
 for using it.  Once you have a working Chapel compiler this program can be
 built with: ``cd src; make maze``.  It can be built and executed with:
-``cd src; make HEIGHT=&lt;height&gt; WIDTH=&lt;width&gt; ALGORITHM=&lt;0|1&gt;``.
+``cd src; make HEIGHT=<height> WIDTH=<width>; ALGORITHM=<0|1>``.
 
 An example maze using the recursive backtracker algorithm:
 
