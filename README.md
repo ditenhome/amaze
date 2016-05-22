@@ -56,3 +56,20 @@ An example maze using the recursive backtracker algorithm:
     |_ _  |   |_ _ _| |  _|_  |  _ _|  _   _|_| | |  _|_ _  | | |  _ _|  _|  _|  _|
     |_ _ _ _|_ _ _ _ _|_ _ _ _ _|_ _ _ _|_ _ _ _|_ _ _ _ _|_ _ _|_ _ _ _|_ _ _ _ _|
 
+Ideas for future work:
+
+  * Add more generation algorithms.
+    * Kruskal
+    * Prim direct algorithm
+    * etc.
+  * Add solvers.
+    * Recursive backtracker
+    * Touch the wall and walk
+    * Others?
+  * Generate 2D graphic mazes instead of ascii art.
+    * Display an auto-solver in 2D.
+    * Allow manual solving in 2D.
+  * Generate 3D views of 2D mazes
+    * Create an automatic walkthrough solver in 3D mode.
+    * Allow manual solving in 3D mode.
+  * Generate 3D or higher dimensional mazes
