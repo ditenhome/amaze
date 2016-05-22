@@ -20,7 +20,7 @@ Compiling this program requires a working Chapel compiler. See
 http://chapel.cray.com to download the Chapel compiler and for instructions
 for using it.  Once you have a working Chapel compiler this program can be
 built with: ``cd src; make maze``.  It can be built and executed with:
-``cd src; make HEIGHT=<height> WIDTH=<width>; ALGORITHM=<0|1>``.
+``cd src; make HEIGHT=<height> WIDTH=<width> ALGORITHM=<0|1>``.
 
 An example maze using the recursive backtracker algorithm:
 
